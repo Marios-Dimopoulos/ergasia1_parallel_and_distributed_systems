@@ -78,21 +78,6 @@ int main(int argc, char* argv[]){
     }
 
 
-   //printf("CSR built. Number of rows: %d, nonzeros: %d\n", nrows, nnz);
-
-   /*//example: print first 5 rows
-   printf("Rowptr\n");
-   for (int i=0; i<=nrows; i++){
-        printf("%d ", rowptr[i]);
-   }
-   printf("\n\n");
-   printf("index\n");
-   for (int i=0; i<nnz; i++) {
-    printf("%d ", index[i]);
-   }
-   printf("\n\n");*/
-
-
     free(row); free(col); free(temp);
 
 

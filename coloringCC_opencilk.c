@@ -6,7 +6,7 @@
 
 #include "coloringCC_opencilk.h"
 
-
+//1 cilk_for
 /*void coloringCC_opencilk(int nrows, const int *rowptr, const int *index, int *labels) {
 
     cilk_for (int i=0; i<nrows; i++) {
@@ -42,6 +42,7 @@
     }
 }*/
 
+//2 cilk_for
 void coloringCC_opencilk(int nrows, const int *rowptr, const int *index, int *labels) {
 
     int *old_labels = malloc(nrows * sizeof(int));
