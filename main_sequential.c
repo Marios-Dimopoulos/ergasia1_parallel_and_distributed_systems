@@ -112,6 +112,6 @@ int main(int argc, char* argv[]){
     gettimeofday(&end, NULL);
 
     double elapsed = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec)/1e6;
-    printf("Executino time: %f seconds\n", elapsed);
+    printf("Execution time: %f seconds\n", elapsed);
 
 }
