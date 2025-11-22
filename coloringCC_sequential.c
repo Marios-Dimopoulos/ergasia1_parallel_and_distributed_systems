@@ -23,9 +23,7 @@ void coloringCC_sequential(int nrows, const int *rowptr, const int *index, int *
             for (int j=start; j<end; j++) {
                 int u = index[j];
                 int lu = labels[u];
-                if (lu<lv) {
-                    lv = lu;
-                }
+                if (lu<lv) lv = lu;
             }
             
             if (lv != labels[v]) {

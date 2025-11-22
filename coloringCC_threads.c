@@ -6,6 +6,7 @@
 
 #include "coloringCC_threads.h"
 
+#define NUM_OF_THREADS 4
 
 typedef struct {
     int start;
@@ -20,18 +21,18 @@ typedef struct {
 void* routine(void* arg) {
     ThreadData *data = (ThreadData*)arg;
     for (int v=data->start; v<data->end; v++) {
-        int lv = data->old_labels[v];
         int start = data->rowptr[v];
         int end = data->rowptr[v+1];
+        int lv = data->old_labels[v];
         for (int j=start; j<end; j++) {
             int u = data->index[j];
             int lu = data->old_labels[u];
             if (lu<lv) lv = lu;
         }
+
         data->new_labels[v] = lv;
-        if (lv != data->old_labels[v]) {
-            *data->changed = true;
-        }
+
+        if (lv != data->old_labels[v]) *data->changed = true;
     }
     return NULL;
 }
@@ -53,36 +54,34 @@ void coloringCC_threads(int nrows, const int *rowptr, const int *index, int *lab
         return;
     }
 
-    int num_threads = 4;
-    pthread_t threads[num_threads];
-    ThreadData tdata[num_threads];
+    pthread_t threads[NUM_OF_THREADS];
+    ThreadData tdata[NUM_OF_THREADS];
 
-   int chunk_size = (nrows + num_threads - 1) / num_threads;
+   int chunk_size = (nrows + NUM_OF_THREADS - 1) / NUM_OF_THREADS;
 
-   for (int t=0; t<num_threads; t++) {
+   for (int t=0; t<NUM_OF_THREADS; t++) {
         int start = t * chunk_size;
         int end = (start + chunk_size > nrows) ? nrows : start + chunk_size;
+        
         tdata[t].start = start;
         tdata[t].end = end;
         tdata[t].old_labels = old_labels;
         tdata[t].new_labels = new_labels;
+
         pthread_create(&threads[t], NULL, routine2, &tdata[t]);
    }
 
-   for (int t=0; t<num_threads; t++) {
+   for (int t=0; t<NUM_OF_THREADS; t++) {
         pthread_join(threads[t], NULL);
    }
-    
-    
 
     bool changed = true;
-    chunk_size = (nrows + num_threads - 1) / num_threads;
 
     while(changed) {
+
         changed = false;
 
-
-        for (int t=0; t<num_threads; t++) {
+        for (int t=0; t<NUM_OF_THREADS; t++) {
             int start = t * chunk_size;
             int end = (start + chunk_size > nrows) ? nrows : start + chunk_size;
 
@@ -97,7 +96,7 @@ void coloringCC_threads(int nrows, const int *rowptr, const int *index, int *lab
             pthread_create(&threads[t], NULL, routine, &tdata[t]);
         }
 
-        for (int t=0; t<num_threads; t++) {
+        for (int t=0; t<NUM_OF_THREADS; t++) {
             pthread_join(threads[t], NULL);
         }
 

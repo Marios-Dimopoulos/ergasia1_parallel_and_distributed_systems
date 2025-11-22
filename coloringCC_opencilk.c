@@ -28,9 +28,7 @@
                 int u = index[j];
                 int lu = labels[u];
 
-                if (lu<lv) {
-                    lv = lu;
-                }
+                if (lu<lv) lv = lu;
             }
 
             if (lv != labels[v]) {
@@ -47,12 +45,12 @@ void coloringCC_opencilk(int nrows, const int *rowptr, const int *index, int *la
 
     int *old_labels = malloc(nrows * sizeof(int));
     int *new_labels = malloc(nrows * sizeof(int));
-
     if (old_labels == NULL || new_labels == NULL) {
         free(old_labels);
         free(new_labels);
         return;
     }   
+
     cilk_for (int i=0; i<nrows; i++) {
         new_labels[i] = i;
         old_labels[i] = i;
@@ -71,17 +69,12 @@ void coloringCC_opencilk(int nrows, const int *rowptr, const int *index, int *la
             for (int j=start; j<end; j++) {
                 int u = index[j];
                 int lu = old_labels[u];
-
-                if (lu<lv) {
-                    lv = lu;
-                }
+                if (lu<lv) lv = lu;
             }
             
             new_labels[v] = lv;
 
-            if (lv != old_labels[v]) {
-                changed = true;
-            }
+            if (lv != old_labels[v]) changed = true;
         }
         int *temp = old_labels;
         old_labels = new_labels;

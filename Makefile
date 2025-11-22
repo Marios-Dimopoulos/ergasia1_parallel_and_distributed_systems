@@ -22,4 +22,4 @@ $(THREADS): main_threads.c coloringCC_threads.c
 	$(GCC) $(CFLAGS) -pthread $^ -o $@
 
 clean:
-	rm -f $(SEQ) $(OMP) $(CILK)
+	rm -f $(SEQ) $(OMP) $(CILK) $(THREADS)
