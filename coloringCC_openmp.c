@@ -31,7 +31,7 @@ void coloringCC_openmp(int nrows, const int *rowptr, const int *index, int *labe
         
         changed = false;
 
-        #pragma omp parallel for schedule(static)
+        #pragma omp parallel for schedule(static) //schedule(dynamic, ...)
         for (int v=0; v<nrows; v++){
             int start = rowptr[v];
             int end = rowptr[v+1];
