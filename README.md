@@ -105,13 +105,13 @@ rebuild to change it).
   `schedule(dynamic, 1024-4096)` was found to be a reasonable,
   cache-friendly chunk size for imbalanced degree distributions.
 - **OpenCilk:** its work-stealing scheduler removes the need to manually
-  pick a scheduling strategy. Interestingly, `coloringCC_opencilk_v1`
-  (which parallelizes only the initialization loop and runs the
-  propagation loop sequentially) outperformed the fully parallel
-  `coloringCC_opencilk` in these benchmarks — cilk_for's per-iteration
-  task-creation and work-stealing overhead outweighed the actual
-  (cheap) per-node work in the propagation loop. Both variants are kept
-  in the code for comparison.
+  pick a scheduling strategy. Interestingly, an alternative
+  implementation that parallelizes only the initialization loop and runs
+  the propagation loop sequentially (kept, commented out, at the top of
+  `coloringCC_opencilk.c` — labeled "1 cilk_for") outperformed the fully
+  parallel version below it ("2 cilk_for") in these benchmarks — cilk_for's
+  per-iteration task-creation and work-stealing overhead outweighed the
+  actual (cheap) per-node work in the propagation loop.
 - **pthreads:** logic mirrors OpenMP/OpenCilk, but threads are spawned
   and joined fresh on every while-loop iteration rather than using a
   persistent pool, and work is split into static, equal-sized chunks
