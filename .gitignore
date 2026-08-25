@@ -1,0 +1,32 @@
+# Build outputs (the Makefile's binaries)
+/seq
+/omp
+/cilk
+/threads
+
+# Generic compiled/object artifacts
+*.o
+*.obj
+*.out
+*.exe
+*.a
+*.so
+*.dylib
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Generated data (edge lists produced by read_mat_files_for_c.m)
+edges.txt
+*.mat
+
+# Profiling / debuggin artifacts
+*.dSYM/
+core
