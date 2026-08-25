@@ -1,3 +1,9 @@
+# Builds the 4 parallel/sequential variants of the connected-components
+# labeling benchmark. Each varian is an independent binary:
+# seq		- plain sequential baseline
+# omp 		- OpenMP (needs gcc with OpenMP support)
+# cilk		- OpenCilk (needs clang build with the OpenCilk plugin)
+# threads 	- pthreads
 GCC   = gcc
 CLANG = clang
 CFLAGS = -march=native -O2 
