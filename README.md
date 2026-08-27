@@ -41,15 +41,7 @@ follows that pattern.
 ## Input format
 
 Each program expects a path to a plain-text **edge list** file: one edge
-per line, as two whitespace-separated, **1-based** node ids:
-
-```
-1 2
-1 3
-2 3
-4 5
-```
-
+per line, as two whitespace-separated, **1-based** node ids.
 `read_mat_files_for_c.m` generates this file from a MATLAB/SuiteSparse
 sparse matrix (`Problem.A`) — load a `.mat` matrix collection file so that
 `Problem` exists in the workspace, then run the script; it writes
