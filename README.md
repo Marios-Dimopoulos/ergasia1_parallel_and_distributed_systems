@@ -47,7 +47,7 @@ sparse matrix (`Problem.A`) — load a `.mat` matrix collection file so that
 `Problem` exists in the workspace, then run the script; it writes
 `edges.txt` in the current directory. Example matrices are pulled from
 the [SuiteSparse Matrix Collection](https://sparse.tamu.edu/): open a
-matrix's page, use its "MATLAB" download button, then run the `.m` script
+matrix's page, use its "MATLAB" download button, then run the `read_mat_files_for_c.m` script
 on it. The `.txt` edge files themselves aren't checked into this repo —
 some of the benchmark matrices were too large even zipped.
 
@@ -55,7 +55,7 @@ some of the benchmark matrices were too large even zipped.
 
 Requirements:
 - `gcc` with OpenMP support, for the sequential/OpenMP/pthreads targets
-- `clang` built with the [OpenCilk](https://www.opencilk.org/) plugin, for the OpenCilk target
+- `clang` built with the OpenCilk plugin, for the OpenCilk target
 
 ```bash
 make          # builds all 4 binaries: seq, omp, cilk, threads
